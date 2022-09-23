@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        .container {
+            width: 500px;
+            height: 200px;
+            position: relative;
+            margin: 50px auto;
+            user-select: none;
+        }
+
+        .left_panel {
+            position: absolute;
+            width: 200px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: rgb(208, 188, 188);
+        }
+
+        .right_panel {
+            position: absolute;
+            left: 200px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            color: #fff;
+            background: rgb(146, 137, 137);
+        }
+
+        .handle {
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            cursor: ew-resize;
+            background: rgb(97, 47, 76);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">尝试挪动中间的竖线</div>
+    <div class="container">
+        <div class="left_panel"> left content! </div>
+        <div class="right_panel">
+            <div class="handle"></div>
+            right content!
+        </div>
+    </div>
+</body>
+<script>
+    let isResizing = false;
+    let container = document.querySelector(".container"),
+        left = document.querySelector(".left_panel"),
+        right = document.querySelector(".right_panel"),
+        handle = document.querySelector(".handle");
+
+    handle.onmousedown = function (e) { isResizing = true; };
+    document.onmouseup = function (e) { isResizing = false; }
+    document.onmousemove = function (e) {
+        if (!isResizing) { return }
+
+        // var offsetRight = container.clientWidth - (e.clientX - container.offsetLeft);
+        let offsetLeft = e.clientX - container.offsetLeft;
+
+        left.style.width = offsetLeft + "px";
+        right.style.left = offsetLeft + "px";
+    }
+</script>
+
+</html>
